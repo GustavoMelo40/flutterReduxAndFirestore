@@ -1,3 +1,6 @@
+# first project Gustavo Melo
+Connect to firebase account - OK
+
 # firestore redux sample
 
 This repo started with [flutter_architecture_redux sample](https://github.com/brianegan/flutter_architecture_samples/blob/master/redux/README.md),
@@ -20,17 +23,17 @@ In the present case, Firestore is being used but set up is similar.
 
 3) For Android:
 
-    - Create an app within your Firebase instance for Android, with package name com.yourcompany.fireredux.
+    - Create an app within your Firebase instance for Android, with package name com.example.firestore_redux.
     In the Firebase console, in the settings of your Android app, add your SHA-1 key by clicking "Add Fingerprint".
     Run the following command to get your SHA-1 key:
 
     `keytool -exportcert -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore`
     - Follow instructions to download google-services.json, and place it into fire_redux/android/app/.
     - Set the defaultConfig.applicationID in `android/app/build.gradle` to match
-    android_client_info.package_name in `google-services.json`, e.g. `com.yourcompany.fireredux`.
+    android_client_info.package_name in `google-services.json`, e.g. `com.example.firestore_redux`.
     This is the name of your Android app in Firebase.
     Package values must match between files `android/app/src/main/AndroidManifest.xml` and
-    `android/app/src/main/java/yourcompany/redux/MainActivity.java`, e.g. `com.yourcompany.fireredux`.
+    `android/app/src/main/java/yourcompany/redux/MainActivity.java`, e.g. `com.example.firestore_redux`.
 
     - To connect to Firestore be sure your project is using Gradle 4.1 and Android Studio Gradle plugin 3.0.1.
     If you are creating a new Flutter project, then this should already be set up properly.
@@ -55,7 +58,7 @@ In the present case, Firestore is being used but set up is similar.
 
 4) For iOS:
 
-    - Create an app within your Firebase instance for iOS, with package name com.yourcompany.fireredux.
+    - Create an app within your Firebase instance for iOS, with package name com.example.firestore_redux.
     - Follow instructions to download GoogleService-Info.plist, and place it into fire_redux/ios/Runner.
     - Open fire_redux/ios/Runner/Info.plist. Locate the CFBundleURLSchemes key.
     The second item in the array value of this key is specific to the Firebase instance.
@@ -68,7 +71,7 @@ In the present case, Firestore is being used but set up is similar.
                     <string>Editor</string>
                     <key>CFBundleURLSchemes</key>
                     <array>
-                        <string>com.yourcompany.firereduxios</string>
+                        <string>com.example.firestore_reduxios</string>
                         <string>com.googleusercontent.apps.631911544122-jtjdk7lmrqoiup15hofsceegpfn0dhj6</string>
                     </array>
                 </dict>
