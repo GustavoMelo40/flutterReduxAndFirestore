@@ -26,39 +26,61 @@ class TodoItem extends StatelessWidget {
     return Dismissible(
       key: ArchSampleKeys.todoItem(todo.id),
       onDismissed: onDismissed,
-      child: Container(
-        margin: const EdgeInsets.all(16.0),
-        decoration: new BoxDecoration(
-            color: Colors.white,
-            borderRadius: new BorderRadius.all(Radius.circular(8.0))),
-        child: ListTile(
-          onTap: onTap,
-          leading: CircularCheckBox(
-            key: ArchSampleKeys.todoItemCheckbox(todo.id),
-            value: todo.complete,
-            checkColor: Colors.white,
-            activeColor: Colors.green,
-            inactiveColor: Colors.grey,
-            onChanged: onCheckboxChanged,
-          ),
-          trailing: Icon(
-            Icons.notifications,
-            color: todo.complete ? Colors.yellow[600] : Colors.grey,
-            size: 24.0,
-          ),
-          title: Hero(
-            tag: '${todo.id}__heroTag',
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-                todo.task,
-                key: ArchSampleKeys.todoItemTask(todo.id),
-                style: Theme.of(context).textTheme.headline6,
-              ),
-            ),
-          ),
-        ),
-      ),
+      child: Card(
+          margin: const EdgeInsets.all(16.0),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0))),
+          elevation: 4,
+          child: ClipPath(
+              child: Container(
+                  child: ListTile(
+                    onTap: onTap,
+                    leading: CircularCheckBox(
+                      key: ArchSampleKeys.todoItemCheckbox(todo.id),
+                      value: todo.complete,
+                      checkColor: Colors.white,
+                      activeColor: Colors.green,
+                      inactiveColor: Colors.grey,
+                      onChanged: onCheckboxChanged,
+                    ),
+                    trailing: Icon(
+                      Icons.notifications,
+                      color: todo.complete ? Colors.yellow[600] : Colors.grey,
+                      size: 24.0,
+                    ),
+                    title: Hero(
+                      tag: '${todo.id}__heroTag',
+                      child: Row(
+                        key: ArchSampleKeys.todoItemTask(todo.id),
+                        children: <Widget>[
+                          Text(
+                            '07.00 AM',
+                            style: new TextStyle(
+                                color: Colors.grey[400],
+                                fontSize: 12,
+                                fontStyle: FontStyle.normal,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(width: 12.0, height: 12.0),
+                          Text(
+                            todo.task,
+                            style: new TextStyle(
+                                color: Colors.deepPurple[800],
+                                fontSize: 14,
+                                fontStyle: FontStyle.normal,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border(
+                        left: BorderSide(color: Colors.green, width: 8.0)),
+                  )),
+              clipper: ShapeBorderClipper(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)))))),
     );
   }
 }
