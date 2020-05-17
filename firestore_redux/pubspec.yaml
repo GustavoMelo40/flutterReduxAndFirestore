@@ -26,6 +26,9 @@ dependencies:
     path: ../todos_app_core
   firebase_flutter_repository:
     path: ../firebase_flutter_repository
+  circular_check_box: 
+    git:
+      url: https://github.com/not-holar/circular_check_box.git
 
 dev_dependencies:
   flutter_test:
