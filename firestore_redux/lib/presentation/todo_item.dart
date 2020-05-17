@@ -35,6 +35,7 @@ class TodoItem extends StatelessWidget {
               child: Container(
                   child: ListTile(
                     onTap: onTap,
+                    contentPadding: EdgeInsets.only(left: 0.0, right: 8.0),
                     leading: CircularCheckBox(
                       key: ArchSampleKeys.todoItemCheckbox(todo.id),
                       value: todo.complete,
@@ -43,10 +44,16 @@ class TodoItem extends StatelessWidget {
                       inactiveColor: Colors.grey,
                       onChanged: onCheckboxChanged,
                     ),
-                    trailing: Icon(
-                      Icons.notifications,
-                      color: todo.complete ? Colors.yellow[600] : Colors.grey,
-                      size: 24.0,
+                    trailing: GestureDetector(
+                      onTap: () {
+                        Scaffold.of(context).showSnackBar(
+                            SnackBar(content: Text('Tap on Bell!')));
+                      },
+                      child: Icon(
+                        Icons.notifications,
+                        color: todo.complete ? Colors.yellow[600] : Colors.grey,
+                        size: 24.0,
+                      ),
                     ),
                     title: Hero(
                       tag: '${todo.id}__heroTag',
