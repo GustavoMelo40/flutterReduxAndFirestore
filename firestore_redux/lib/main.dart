@@ -18,6 +18,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,7 +53,11 @@ class ReduxApp extends StatelessWidget {
       child: MaterialApp(
         onGenerateTitle: (context) =>
             FirestoreReduxLocalizations.of(context).appTitle,
-        theme: ArchSampleTheme.theme,
+        theme: ThemeData(
+          textTheme: GoogleFonts.rubikTextTheme(
+            Theme.of(context).textTheme,
+          ),
+        ),
         localizationsDelegates: [
           ArchSampleLocalizationsDelegate(),
           FirestoreReduxLocalizationsDelegate(),

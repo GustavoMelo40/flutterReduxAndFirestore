@@ -27,10 +27,10 @@ class TodoItem extends StatelessWidget {
       key: ArchSampleKeys.todoItem(todo.id),
       onDismissed: onDismissed,
       child: Container(
-        margin: const EdgeInsets.all(16),
+        margin: const EdgeInsets.all(16.0),
         decoration: new BoxDecoration(
-            color: Colors.blue,
-            borderRadius: new BorderRadius.all(Radius.circular(8))),
+            color: Colors.white,
+            borderRadius: new BorderRadius.all(Radius.circular(8.0))),
         child: ListTile(
           onTap: onTap,
           leading: CircularCheckBox(
@@ -40,6 +40,11 @@ class TodoItem extends StatelessWidget {
             activeColor: Colors.green,
             inactiveColor: Colors.grey,
             onChanged: onCheckboxChanged,
+          ),
+          trailing: Icon(
+            Icons.notifications,
+            color: todo.complete ? Colors.yellow[600] : Colors.grey,
+            size: 24.0,
           ),
           title: Hero(
             tag: '${todo.id}__heroTag',

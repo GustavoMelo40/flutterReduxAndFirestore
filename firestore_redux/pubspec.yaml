@@ -29,6 +29,7 @@ dependencies:
   circular_check_box: 
     git:
       url: https://github.com/not-holar/circular_check_box.git
+  google_fonts: ^0.1.0
 
 dev_dependencies:
   flutter_test:
@@ -70,10 +71,18 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
-  #   - family: Schyler
+  #   - family: Rubik
   #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  #       - asset: fonts/Rubik-Medium.ttf
+  #       - asset: fonts/Rubik-Regular.ttf
+  #       - asset: fonts/Rubik-Black.ttf
+  #       - asset: fonts/Rubik-BlackItalic.ttf
+  #       - asset: fonts/Rubik-Bold.ttf
+  #       - asset: fonts/Rubik-BoldItalic.ttf
+  #       - asset: fonts/Rubik-Italic.ttf
+  #       - asset: fonts/Rubik-Light.ttf
+  #       - asset: fonts/Rubik-LightItalic.ttf
+  #       - asset: fonts/Rubik-MediumItalic.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
