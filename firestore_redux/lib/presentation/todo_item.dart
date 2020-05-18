@@ -30,7 +30,7 @@ class TodoItem extends StatelessWidget {
           margin: const EdgeInsets.all(16.0),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0))),
-          elevation: 4,
+          elevation: 8,
           child: ClipPath(
               child: Container(
                   child: ListTile(

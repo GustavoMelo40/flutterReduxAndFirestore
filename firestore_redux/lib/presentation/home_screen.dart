@@ -18,7 +18,6 @@ class HomeScreen extends StatelessWidget {
   HomeScreen() : super(key: ArchSampleKeys.homeScreen);
 
   final GlobalKey _fabKey = GlobalKey();
-  final duration = const Duration(milliseconds: 3000);
 
   @override
   Widget build(BuildContext context) {
@@ -42,116 +41,30 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTransition(
-    BuildContext context,
-    Widget page,
-    Animation<double> animation,
-    Size fabSize,
-    Offset fabOffset,
-  ) {
-    if (animation.value == 1) return page;
-
-    final borderTween = BorderRadiusTween(
-      begin: BorderRadius.circular(0.0),
-      end: BorderRadius.circular(0.0),
-    );
-    final sizeTween = SizeTween(
-      begin: fabSize,
-      end: MediaQuery.of(context).size,
-    );
-    final offsetTween = Tween<Offset>(
-      begin: fabOffset,
-      end: Offset.zero,
-    );
-
-    final easeInAnimation = CurvedAnimation(
-      parent: animation,
-      curve: Curves.easeIn,
-    );
-    final easeAnimation = CurvedAnimation(
-      parent: animation,
-      curve: Curves.easeOut,
-    );
-
-    final radius = borderTween.evaluate(easeInAnimation);
-    final offset = offsetTween.evaluate(animation);
-    final size = sizeTween.evaluate(easeInAnimation);
-
-    final transitionFab = Opacity(
-      opacity: 1 - easeAnimation.value,
-      child: _buildFAB(context),
-    );
-
-    Widget positionedClippedChild(Widget child) => Positioned(
-        width: size.width / 2,
-        height: size.height / 2,
-        left: offset.dx / 2,
-        top: offset.dy / 2,
-        child: ClipRRect(
-          borderRadius: radius,
-          child: child,
-        ));
-
-    return Stack(
-      children: [
-        positionedClippedChild(page),
-        positionedClippedChild(transitionFab),
-      ],
-    );
-  }
-
   Widget _buildFAB(context, {key}) => FloatingActionButton(
         heroTag: "FAB",
         elevation: 8,
         backgroundColor: Colors.pink,
         key: key,
-        onPressed: () => _onFabTap(context),
+        onPressed: () => showDialog(context),
         child: Icon(Icons.add),
       );
 
-  _onFabTap(BuildContext context) {
-    final RenderBox fabRenderBox = _fabKey.currentContext.findRenderObject();
-    final fabSize = fabRenderBox.size;
-    final fabOffset = fabRenderBox.localToGlobal(Offset.zero);
-
-    Navigator.of(context).push(PageRouteBuilder(
-        opaque: false,
-        transitionDuration: duration,
-        pageBuilder: (BuildContext context, Animation<double> animation,
-                Animation<double> secondaryAnimation) =>
-            AddTodo(),
-        transitionsBuilder: (BuildContext context, Animation<double> animation,
-                Animation<double> secondaryAnimation, Widget child) =>
-            new ScaleTransition(
-              scale: new Tween<double>(
-                begin: 0.0,
-                end: 1.0,
-              ).animate(
-                CurvedAnimation(
-                  parent: animation,
-                  curve: Interval(
-                    0.00,
-                    0.50,
-                    curve: Curves.linear,
-                  ),
-                ),
-              ),
-              child: ScaleTransition(
-                scale: Tween<double>(
-                  begin: 1.5,
-                  end: 1.0,
-                ).animate(
-                  CurvedAnimation(
-                    parent: animation,
-                    curve: Interval(
-                      0.50,
-                      1.00,
-                      curve: Curves.linear,
-                    ),
-                  ),
-                ),
-                child: child,
-              ),
-            )));
+  showDialog(BuildContext context) {
+    showGeneralDialog(
+        barrierLabel: "AddTodo",
+        barrierDismissible: true,
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionDuration: Duration(milliseconds: 200),
+        context: context,
+        pageBuilder: (_, __, ___) => Align(
+              alignment: Alignment.bottomCenter,
+              child: AddTodo(),
+            ),
+        transitionBuilder: (_, anim, __, child) => SlideTransition(
+              position:
+                  Tween(begin: Offset(0, 0.5), end: Offset(0, 0)).animate(anim),
+              child: child,
+            ));
   }
 }
