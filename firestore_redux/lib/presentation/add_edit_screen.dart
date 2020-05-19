@@ -6,28 +6,27 @@ import 'package:fire_redux_sample/models/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
+import 'package:fire_redux_sample/actions/actions.dart';
+import 'package:redux/redux.dart';
+import 'package:fire_redux_sample/selectors/selectors.dart';
 
 typedef OnSaveCallback = void Function(String task, String note);
 
-class AddEditScreen extends StatefulWidget {
+class AddEditScreen extends StatelessWidget {
   final bool isEditing;
   final OnSaveCallback onSave;
   final Todo todo;
+  final Function onDelete;
+  final Function(bool) toggleCompleted;
 
-  AddEditScreen(
-      {Key key, @required this.onSave, @required this.isEditing, this.todo})
-      : super(key: key ?? ArchSampleKeys.addTodoScreen);
-  @override
-  _AddEditScreenState createState() => _AddEditScreenState();
-}
-
-class _AddEditScreenState extends State<AddEditScreen> {
-  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  String _task;
-  String _note;
-
-  bool get isEditing => widget.isEditing;
+  AddEditScreen({
+    Key key,
+    @required this.todo,
+    @required this.onDelete,
+    @required this.onSave,
+    @required this.isEditing,
+    @required this.toggleCompleted,
+  }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +35,12 @@ class _AddEditScreenState extends State<AddEditScreen> {
     final GlobalKey _fabKeyClose = GlobalKey();
     final double fabSize = MediaQuery.of(context).size.height / 36;
     const double topWidgetHeight = 240.0;
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+    String _task;
+    String _note;
+
+    bool isEditing = false;
 
     return Container(
       child: Stack(
@@ -56,7 +61,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                   child: ListView(
                     children: [
                       TextFormField(
-                        initialValue: isEditing ? widget.todo.task : '',
+                        initialValue: isEditing ? todo.task : '',
                         key: ArchSampleKeys.taskField,
                         autofocus: !isEditing,
                         style: textTheme.headline5,
@@ -78,9 +83,10 @@ class _AddEditScreenState extends State<AddEditScreen> {
                         onTap: () {
                           if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();
-                            widget.onSave(_task, _note);
+                            onSave(_task, _note);
                             Navigator.pop(context);
                           }
+                          print(todo);
                         },
                         child: Container(
                           height: 48,
@@ -129,16 +135,43 @@ class _AddEditScreenState extends State<AddEditScreen> {
       ),
     );
   }
-
-  Widget _buildFABClose(context, fabSize, {key}) => FloatingActionButton(
-        heroTag: "FABClose",
-        elevation: 8,
-        backgroundColor: Colors.pink,
-        key: key,
-        onPressed: () => Navigator.pop(context),
-        child: Icon(
-          Icons.close,
-          size: fabSize,
-        ),
-      );
 }
+
+class _ViewModel {
+  final Todo todo;
+  final Function onDelete;
+  final Function(bool) toggleCompleted;
+
+  _ViewModel({
+    @required this.todo,
+    @required this.onDelete,
+    @required this.toggleCompleted,
+  });
+
+  factory _ViewModel.from(Store<AppState> store, String id) {
+    final todo = todoSelector(todosSelector(store.state), id).value;
+
+    return _ViewModel(
+      todo: todo,
+      onDelete: () => store.dispatch(DeleteTodoAction(todo.id)),
+      toggleCompleted: (isComplete) {
+        store.dispatch(UpdateTodoAction(
+          todo.id,
+          todo.copyWith(complete: isComplete),
+        ));
+      },
+    );
+  }
+}
+
+Widget _buildFABClose(context, fabSize, {key}) => FloatingActionButton(
+      heroTag: "FABClose",
+      elevation: 8,
+      backgroundColor: Colors.pink,
+      key: key,
+      onPressed: () => Navigator.pop(context),
+      child: Icon(
+        Icons.close,
+        size: fabSize,
+      ),
+    );

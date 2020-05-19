@@ -10,6 +10,7 @@ import 'package:fire_redux_sample/presentation/todo_item.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
+import 'package:fire_redux_sample/containers/add_todo.dart';
 
 class TodoList extends StatelessWidget {
   final List<Todo> todos;
@@ -46,7 +47,7 @@ class TodoList extends StatelessWidget {
           onDismissed: (direction) {
             _removeTodo(context, todo);
           },
-          onTap: () => _onTodoTap(context, todo),
+          onTap: () => showDialog(context, todo),
           onCheckboxChanged: (complete) {
             onCheckboxChanged(todo, complete);
           },
@@ -94,5 +95,23 @@ class TodoList extends StatelessWidget {
             )));
       }
     });
+  }
+
+  void showDialog(BuildContext context, Todo todo) {
+    showGeneralDialog(
+        barrierLabel: "AddTodo",
+        barrierDismissible: true,
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionDuration: Duration(milliseconds: 200),
+        context: context,
+        pageBuilder: (_, __, ___) => Align(
+              alignment: Alignment.bottomCenter,
+              child: AddTodo(id: todo.id),
+            ),
+        transitionBuilder: (_, anim, __, child) => SlideTransition(
+              position:
+                  Tween(begin: Offset(0, 0.5), end: Offset(0, 0)).animate(anim),
+              child: child,
+            ));
   }
 }

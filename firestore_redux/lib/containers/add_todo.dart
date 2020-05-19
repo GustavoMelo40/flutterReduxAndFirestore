@@ -11,7 +11,9 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 class AddTodo extends StatelessWidget {
-  AddTodo({Key key}) : super(key: key);
+  final String id;
+
+  AddTodo({Key key, this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class AddTodo extends StatelessWidget {
       builder: (BuildContext context, OnSaveCallback onSave) {
         return AddEditScreen(
           key: ArchSampleKeys.addTodoScreen,
+          todo: Todo('a'),
           onSave: onSave,
           isEditing: false,
         );
