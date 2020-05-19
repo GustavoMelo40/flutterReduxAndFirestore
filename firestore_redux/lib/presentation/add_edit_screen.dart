@@ -70,16 +70,52 @@ class _AddEditScreenState extends State<AddEditScreen> {
                         },
                         onSaved: (value) => _task = value,
                       ),
-                      // TextFormField(
-                      //   initialValue: isEditing ? widget.todo.note : '',
-                      //   key: ArchSampleKeys.noteField,
-                      //   maxLines: 10,
-                      //   style: textTheme.subtitle1,
-                      //   decoration: InputDecoration(
-                      //     hintText: localizations.notesHint,
-                      //   ),
-                      //   onSaved: (value) => _note = value,
-                      // )
+                      SizedBox(width: 120.0, height: 120.0),
+                      GestureDetector(
+                        key: isEditing
+                            ? ArchSampleKeys.saveTodoFab
+                            : ArchSampleKeys.saveNewTodo,
+                        onTap: () {
+                          if (_formKey.currentState.validate()) {
+                            _formKey.currentState.save();
+                            widget.onSave(_task, _note);
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: Container(
+                          height: 48,
+                          margin: const EdgeInsets.all(16.0),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.blue[200],
+                                Colors.blue[800],
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                offset: Offset(5, 5),
+                                blurRadius: 10,
+                              )
+                            ],
+                          ),
+                          child: Center(
+                            child: Text(
+                              isEditing
+                                  ? localizations.saveChanges
+                                  : localizations.addTodo,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -91,19 +127,6 @@ class _AddEditScreenState extends State<AddEditScreen> {
           )
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   key:
-      //       isEditing ? ArchSampleKeys.saveTodoFab : ArchSampleKeys.saveNewTodo,
-      //   tooltip: isEditing ? localizations.saveChanges : localizations.addTodo,
-      //   child: Icon(isEditing ? Icons.check : Icons.add),
-      //   onPressed: () {
-      //     if (_formKey.currentState.validate()) {
-      //       _formKey.currentState.save();
-      //       widget.onSave(_task, _note);
-      //       Navigator.pop(context);
-      //     }
-      //   },
-      // ),
     );
   }
 
