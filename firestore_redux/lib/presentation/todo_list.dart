@@ -10,7 +10,7 @@ import 'package:fire_redux_sample/presentation/todo_item.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:fire_redux_sample/containers/add_todo.dart';
+import 'package:fire_redux_sample/containers/edit_todo.dart';
 
 class TodoList extends StatelessWidget {
   final List<Todo> todos;
@@ -72,31 +72,6 @@ class TodoList extends StatelessWidget {
         )));
   }
 
-  void _onTodoTap(BuildContext context, Todo todo) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(
-      builder: (_) => TodoDetails(id: todo.id),
-    ))
-        .then((removedTodo) {
-      if (removedTodo != null) {
-        Scaffold.of(context).showSnackBar(SnackBar(
-            key: ArchSampleKeys.snackbar,
-            duration: Duration(seconds: 2),
-            content: Text(
-              ArchSampleLocalizations.of(context).todoDeleted(todo.task),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            action: SnackBarAction(
-              label: ArchSampleLocalizations.of(context).undo,
-              onPressed: () {
-                onUndoRemove(todo);
-              },
-            )));
-      }
-    });
-  }
-
   void showDialog(BuildContext context, Todo todo) {
     showGeneralDialog(
         barrierLabel: "AddTodo",
@@ -106,7 +81,7 @@ class TodoList extends StatelessWidget {
         context: context,
         pageBuilder: (_, __, ___) => Align(
               alignment: Alignment.bottomCenter,
-              child: AddTodo(id: todo.id),
+              child: EditTodo(todo: todo),
             ),
         transitionBuilder: (_, anim, __, child) => SlideTransition(
               position:

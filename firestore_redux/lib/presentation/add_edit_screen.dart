@@ -21,26 +21,26 @@ class AddEditScreen extends StatelessWidget {
 
   AddEditScreen({
     Key key,
-    @required this.todo,
-    @required this.onDelete,
-    @required this.onSave,
-    @required this.isEditing,
-    @required this.toggleCompleted,
+    this.todo,
+    this.onDelete,
+    this.onSave,
+    this.isEditing,
+    this.toggleCompleted,
   }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey _fabKeyClose = GlobalKey();
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
     final localizations = ArchSampleLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
-    final GlobalKey _fabKeyClose = GlobalKey();
+
     final double fabSize = MediaQuery.of(context).size.height / 36;
     const double topWidgetHeight = 240.0;
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
     String _task;
     String _note;
-
-    bool isEditing = false;
 
     return Container(
       child: Stack(
@@ -86,7 +86,6 @@ class AddEditScreen extends StatelessWidget {
                             onSave(_task, _note);
                             Navigator.pop(context);
                           }
-                          print(todo);
                         },
                         child: Container(
                           height: 48,
@@ -100,7 +99,7 @@ class AddEditScreen extends StatelessWidget {
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(8),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black12,
@@ -133,33 +132,6 @@ class AddEditScreen extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-class _ViewModel {
-  final Todo todo;
-  final Function onDelete;
-  final Function(bool) toggleCompleted;
-
-  _ViewModel({
-    @required this.todo,
-    @required this.onDelete,
-    @required this.toggleCompleted,
-  });
-
-  factory _ViewModel.from(Store<AppState> store, String id) {
-    final todo = todoSelector(todosSelector(store.state), id).value;
-
-    return _ViewModel(
-      todo: todo,
-      onDelete: () => store.dispatch(DeleteTodoAction(todo.id)),
-      toggleCompleted: (isComplete) {
-        store.dispatch(UpdateTodoAction(
-          todo.id,
-          todo.copyWith(complete: isComplete),
-        ));
-      },
     );
   }
 }
