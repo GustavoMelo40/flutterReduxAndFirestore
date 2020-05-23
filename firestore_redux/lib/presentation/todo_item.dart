@@ -9,13 +9,13 @@ import 'package:todos_app_core/todos_app_core.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class TodoItem extends StatelessWidget {
-  final DismissDirectionCallback onDismissed;
   final GestureTapCallback onTap;
   final ValueChanged<bool> onCheckboxChanged;
   final Todo todo;
+  final Function onDelete;
 
   TodoItem({
-    @required this.onDismissed,
+    @required this.onDelete,
     @required this.onTap,
     @required this.onCheckboxChanged,
     @required this.todo,
@@ -23,9 +23,9 @@ class TodoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: ArchSampleKeys.todoItem(todo.id),
-      onDismissed: onDismissed,
+    return Slidable(
+      actionPane: SlidableDrawerActionPane(),
+      actionExtentRatio: 0.25,
       child: Card(
           margin: const EdgeInsets.all(16.0),
           shape: RoundedRectangleBorder(
@@ -83,6 +83,18 @@ class TodoItem extends StatelessWidget {
               clipper: ShapeBorderClipper(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8.0)))))),
+      secondaryActions: <Widget>[
+        IconSlideAction(
+          key: ArchSampleKeys.deleteTodoButton,
+          caption: 'Delete',
+          color: Colors.grey[50],
+          foregroundColor: Colors.red,
+          icon: Icons.delete,
+          onTap: () {
+            onDelete();
+          },
+        ),
+      ],
     );
   }
 }

@@ -42,10 +42,10 @@ class TodoList extends StatelessWidget {
         final todo = todos[index];
 
         return TodoItem(
-          todo: todo,
-          onDismissed: (direction) {
+          onDelete: () {
             _removeTodo(context, todo);
           },
+          todo: todo,
           onTap: () => showDialog(context, todo),
           onCheckboxChanged: (complete) {
             onCheckboxChanged(todo, complete);
