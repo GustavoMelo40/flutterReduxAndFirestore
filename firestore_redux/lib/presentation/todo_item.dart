@@ -6,7 +6,6 @@ import 'package:fire_redux_sample/models/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:circular_check_box/circular_check_box.dart';
 
 class TodoItem extends StatelessWidget {
   final DismissDirectionCallback onDismissed;
@@ -36,14 +35,14 @@ class TodoItem extends StatelessWidget {
                   child: ListTile(
                     onTap: onTap,
                     contentPadding: EdgeInsets.only(left: 0.0, right: 8.0),
-                    leading: CircularCheckBox(
-                      key: ArchSampleKeys.todoItemCheckbox(todo.id),
-                      value: todo.complete,
-                      checkColor: Colors.white,
-                      activeColor: Colors.green,
-                      inactiveColor: Colors.grey,
-                      onChanged: onCheckboxChanged,
-                    ),
+                    // leading: CircularCheckBox(
+                    //   key: ArchSampleKeys.todoItemCheckbox(todo.id),
+                    //   value: todo.complete,
+                    //   checkColor: Colors.white,
+                    //   activeColor: Colors.green,
+                    //   inactiveColor: Colors.grey,
+                    //   onChanged: onCheckboxChanged,
+                    // ),
                     trailing: GestureDetector(
                       onTap: () {
                         Scaffold.of(context).showSnackBar(
