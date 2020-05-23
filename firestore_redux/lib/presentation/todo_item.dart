@@ -34,15 +34,10 @@ class TodoItem extends StatelessWidget {
               child: Container(
                   child: ListTile(
                     onTap: onTap,
-                    contentPadding: EdgeInsets.only(left: 0.0, right: 8.0),
-                    // leading: CircularCheckBox(
-                    //   key: ArchSampleKeys.todoItemCheckbox(todo.id),
-                    //   value: todo.complete,
-                    //   checkColor: Colors.white,
-                    //   activeColor: Colors.green,
-                    //   inactiveColor: Colors.grey,
-                    //   onChanged: onCheckboxChanged,
-                    // ),
+                    leading: CircleCheckbox(
+                        value: todo.complete,
+                        onChanged: onCheckboxChanged,
+                        activeColor: Colors.green),
                     trailing: GestureDetector(
                       onTap: () {
                         Scaffold.of(context).showSnackBar(
@@ -67,7 +62,7 @@ class TodoItem extends StatelessWidget {
                                 fontStyle: FontStyle.normal,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(width: 12.0, height: 12.0),
+                          SizedBox(width: 8.0, height: 8.0),
                           Text(
                             todo.task,
                             style: new TextStyle(
@@ -87,6 +82,54 @@ class TodoItem extends StatelessWidget {
               clipper: ShapeBorderClipper(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8.0)))))),
+    );
+  }
+}
+
+class CircleCheckbox extends StatelessWidget {
+  final bool value;
+  final ValueChanged<bool> onChanged;
+  final Color activeColor;
+  final Color checkColor;
+  final bool tristate;
+  final MaterialTapTargetSize materialTapTargetSize;
+
+  CircleCheckbox({
+    Key key,
+    @required this.value,
+    this.tristate = false,
+    @required this.onChanged,
+    this.activeColor,
+    this.checkColor,
+    this.materialTapTargetSize,
+  })  : assert(tristate != null),
+        assert(tristate || value != null),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipOval(
+      child: SizedBox(
+        width: Checkbox.width,
+        height: Checkbox.width,
+        child: Container(
+          decoration: new BoxDecoration(
+            border: Border.all(
+                width: 2,
+                color: Theme.of(context).unselectedWidgetColor ??
+                    Theme.of(context).disabledColor),
+            borderRadius: new BorderRadius.circular(100),
+          ),
+          child: Checkbox(
+            value: value,
+            tristate: tristate,
+            onChanged: onChanged,
+            activeColor: activeColor,
+            checkColor: checkColor,
+            materialTapTargetSize: materialTapTargetSize,
+          ),
+        ),
+      ),
     );
   }
 }

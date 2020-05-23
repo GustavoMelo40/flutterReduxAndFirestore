@@ -3,7 +3,6 @@
 // in the LICENSE file.
 
 import 'package:fire_redux_sample/containers/app_loading.dart';
-import 'package:fire_redux_sample/containers/todo_details.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/presentation/loading_indicator.dart';
 import 'package:fire_redux_sample/presentation/todo_item.dart';

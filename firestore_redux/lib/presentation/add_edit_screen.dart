@@ -6,9 +6,6 @@ import 'package:fire_redux_sample/models/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:fire_redux_sample/actions/actions.dart';
-import 'package:redux/redux.dart';
-import 'package:fire_redux_sample/selectors/selectors.dart';
 
 typedef OnSaveCallback = void Function(String task, String note);
 
