@@ -6,6 +6,7 @@ import 'package:fire_redux_sample/models/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class TodoItem extends StatelessWidget {
   final DismissDirectionCallback onDismissed;

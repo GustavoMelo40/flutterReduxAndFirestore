@@ -22,6 +22,7 @@ dependencies:
   meta: '>=1.1.0 <2.0.0'
   redux: ^4.0.0
   flutter_redux: ^0.6.0
+  flutter_slidable: "^0.5.4"
   todos_app_core:
     path: ../todos_app_core
   firebase_flutter_repository:
