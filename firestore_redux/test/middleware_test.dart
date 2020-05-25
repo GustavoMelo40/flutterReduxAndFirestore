@@ -35,8 +35,8 @@ void main() {
       );
 
       when(userRepository.login()).thenAnswer((_) => SynchronousFuture(null));
-      when(todosRepository.todos())
-          .thenAnswer((_) => StreamController<List<TodoEntity>>().stream);
+      when(todosRepository.todos()).thenAnswer((_) =>
+          SynchronousFuture(StreamController<List<TodoEntity>>().stream));
 
       store.dispatch(InitAppAction());
 
@@ -63,7 +63,8 @@ void main() {
           ..add(captor),
       );
 
-      when(todosRepository.todos()).thenAnswer((_) => controller.stream);
+      when(todosRepository.todos())
+          .thenAnswer((_) => SynchronousFuture(controller.stream));
 
       store.dispatch(ConnectToDataSourceAction());
       controller.add([todo.toEntity()]);

@@ -46,7 +46,7 @@ class ReactiveLocalStorageRepository implements ReactiveTodosRepository {
   }
 
   @override
-  Stream<List<TodoEntity>> todos() {
+  Future<Stream<List<TodoEntity>>> todos() async {
     if (!_loaded) _loadTodos();
 
     return _subject.stream;

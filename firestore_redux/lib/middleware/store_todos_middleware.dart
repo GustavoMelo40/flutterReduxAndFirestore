@@ -63,9 +63,9 @@ void Function(
   return (store, action, next) {
     next(action);
 
-    repository.todos().listen((todos) {
-      store.dispatch(LoadTodosAction(todos.map(Todo.fromEntity).toList()));
-    });
+    repository.todos().then((value) => value.listen((todos) {
+          store.dispatch(LoadTodosAction(todos.map(Todo.fromEntity).toList()));
+        }));
   };
 }
 

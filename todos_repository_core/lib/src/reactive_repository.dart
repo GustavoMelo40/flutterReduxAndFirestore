@@ -21,7 +21,7 @@ abstract class ReactiveTodosRepository {
 
   Future<void> deleteTodo(List<String> idList);
 
-  Stream<List<TodoEntity>> todos();
+  Future<Stream<List<TodoEntity>>> todos();
 
   Future<void> updateTodo(TodoEntity todo);
 }

@@ -39,7 +39,7 @@ void main() {
     });
 
     test('should be able to click on an item to see details', () async {
-      final detailsScreen = await homeScreen.todoList.todoItem('2').tap();
+      final detailsScreen = homeScreen.todoList.todoItem('2').tap();
       expect(await detailsScreen.task, isNotEmpty);
       expect(await detailsScreen.note, isNotEmpty);
 
@@ -85,7 +85,7 @@ void main() {
     });
 
     test('should be able to view stats', () async {
-      final stats = await homeScreen.tapStatsTab();
+      final stats = homeScreen.tapStatsTab();
 
       expect(await stats.numActive, 2);
       expect(await stats.numCompleted, 2);
@@ -123,7 +123,7 @@ void main() {
       final note = 'Take picture next to Great Pyramid of Giza!';
 
       // init to home screen
-      await homeScreen.tapTodosTab();
+      homeScreen.tapTodosTab();
       expect(await homeScreen.isReady(), isTrue);
 
       // go to add screen and enter a _todo
@@ -144,11 +144,11 @@ void main() {
           'Have lunch next to Great Pyramid of Giza and take pictures!';
 
       // init to home screen
-      await homeScreen.tapTodosTab();
+      homeScreen.tapTodosTab();
       expect(await homeScreen.isReady(), isTrue);
 
       // find the _todo text to edit and go to details screen
-      final detailsScreen = await homeScreen.tapTodo(task);
+      final detailsScreen = homeScreen.tapTodo(task);
       expect(await detailsScreen.isReady(), isTrue);
 
       // go to edit screen and edit this _todo

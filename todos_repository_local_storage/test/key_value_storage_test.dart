@@ -13,7 +13,9 @@ class MockKeyValueStore extends Mock implements KeyValueStore {}
 void main() {
   group('KeyValueStorage', () {
     final store = MockKeyValueStore();
-    final todos = [TodoEntity('Task', '1', 'Hallo', true)];
+    final todos = [
+      TodoEntity('Task', '1', 'Hallo', true, 'IRThU8sWJOSYPy1gpBKuMc6RPka2')
+    ];
     final todosJson =
         '{"todos":[{"complete":true,"task":"Task","note":"Hallo","id":"1"}]}';
     final storage = KeyValueStorage('T', store);

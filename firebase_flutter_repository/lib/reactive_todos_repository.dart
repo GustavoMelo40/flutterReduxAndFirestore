@@ -5,6 +5,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
 class FirestoreReactiveTodosRepository implements ReactiveTodosRepository {
@@ -27,15 +28,15 @@ class FirestoreReactiveTodosRepository implements ReactiveTodosRepository {
   }
 
   @override
-  Stream<List<TodoEntity>> todos() {
-    return firestore.collection(path).snapshots().map((snapshot) {
+  Future<Stream<List<TodoEntity>>> todos() async {
+    return firestore
+        .collection(path)
+        .where('userUID', isEqualTo: await userUID)
+        .snapshots()
+        .map((snapshot) {
       return snapshot.documents.map((doc) {
-        return TodoEntity(
-          doc['task'],
-          doc.documentID,
-          doc['note'] ?? '',
-          doc['complete'] ?? false,
-        );
+        return TodoEntity(doc['task'], doc.documentID, doc['note'] ?? '',
+            doc['complete'] ?? false, doc['userUID'] ?? '');
       }).toList();
     });
   }
@@ -46,5 +47,11 @@ class FirestoreReactiveTodosRepository implements ReactiveTodosRepository {
         .collection(path)
         .document(todo.id)
         .updateData(todo.toJson());
+  }
+
+  Future<String> get userUID async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    FirebaseUser user = await _auth.currentUser();
+    return user.uid;
   }
 }

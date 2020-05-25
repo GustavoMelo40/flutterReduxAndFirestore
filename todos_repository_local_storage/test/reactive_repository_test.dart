@@ -15,9 +15,9 @@ void main() {
   group('ReactiveTodosRepository', () {
     List<TodoEntity> createTodos([String task = 'Task']) {
       return [
-        TodoEntity(task, '1', 'Hallo', false),
-        TodoEntity(task, '2', 'Friend', false),
-        TodoEntity(task, '3', 'Yo', false),
+        TodoEntity(task, '1', 'Hallo', false, 'IRThU8sWJOSYPy1gpBKuMc6RPka2'),
+        TodoEntity(task, '2', 'Friend', false, 'IRThU8sWJOSYPy1gpBKuMc6RPka2'),
+        TodoEntity(task, '3', 'Yo', false, 'IRThU8sWJOSYPy1gpBKuMc6RPka2'),
       ];
     }
 

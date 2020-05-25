@@ -33,7 +33,8 @@ void main() {
       final collection = MockCollectionReference();
       final document = MockDocumentReference();
       final repository = FirestoreReactiveTodosRepository(firestore);
-      final todo = TodoEntity('A', '1', '', true);
+      final todo =
+          TodoEntity('A', '1', '', true, 'IRThU8sWJOSYPy1gpBKuMc6RPka2');
 
       when(firestore.collection(FirestoreReactiveTodosRepository.path))
           .thenReturn(collection);
@@ -49,7 +50,8 @@ void main() {
       final collection = MockCollectionReference();
       final document = MockDocumentReference();
       final repository = FirestoreReactiveTodosRepository(firestore);
-      final todo = TodoEntity('A', '1', '', true);
+      final todo =
+          TodoEntity('A', '1', '', true, 'IRThU8sWJOSYPy1gpBKuMc6RPka2');
 
       when(firestore.collection(FirestoreReactiveTodosRepository.path))
           .thenReturn(collection);
@@ -61,7 +63,8 @@ void main() {
     });
 
     test('should listen for updates to the collection', () {
-      final todo = TodoEntity('A', '1', '', true);
+      final todo =
+          TodoEntity('A', '1', '', true, 'IRThU8sWJOSYPy1gpBKuMc6RPka2');
       final firestore = MockFirestore();
       final collection = MockCollectionReference();
       final snapshot = MockQuerySnapshot();

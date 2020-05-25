@@ -21,7 +21,7 @@ class TodoItemElement extends TestElement {
   SerializableFinder get _checkboxFinder =>
       find.byValueKey('TodoItem__${id}__Checkbox');
 
-  SerializableFinder get _todoItemFinder => find.byValueKey('TodoItem__${id}');
+  SerializableFinder get _todoItemFinder => find.byValueKey('TodoItem__$id');
 
   Future<bool> get isVisible => widgetExists(driver, _todoItemFinder);
 

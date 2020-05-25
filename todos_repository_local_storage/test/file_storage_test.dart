@@ -10,7 +10,9 @@ import 'package:todos_repository_local_storage/todos_repository_local_storage.da
 
 void main() {
   group('FileStorage', () {
-    final todos = [TodoEntity('Task', '1', 'Hallo', false)];
+    final todos = [
+      TodoEntity('Task', '1', 'Hallo', false, 'IRThU8sWJOSYPy1gpBKuMc6RPka2')
+    ];
     final directory = Directory.systemTemp.createTemp('__storage_test__');
     final storage = FileStorage(
       '_test_tag_',
