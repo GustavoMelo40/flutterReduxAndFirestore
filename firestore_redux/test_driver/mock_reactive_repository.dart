@@ -14,6 +14,12 @@ class MockUserRepository implements UserRepository {
   ]) {
     return Future<UserEntity>.delayed(delayAuth);
   }
+
+  Future<UserEntity> handleSignIn([
+    delayAuth = const Duration(milliseconds: 200),
+  ]) {
+    return Future<UserEntity>.delayed(delayAuth);
+  }
 }
 
 class MockReactiveTodosRepository implements ReactiveTodosRepository {

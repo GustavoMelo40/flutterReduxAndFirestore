@@ -10,7 +10,6 @@ import 'package:fire_redux_sample/middleware/store_todos_middleware.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/presentation/home_screen.dart';
 import 'package:fire_redux_sample/reducers/app_state_reducer.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_flutter_repository/reactive_todos_repository.dart';
 import 'package:firebase_flutter_repository/user_repository.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +38,7 @@ class ReduxApp extends StatelessWidget {
           middleware: createStoreTodosMiddleware(
             todosRepository ??
                 FirestoreReactiveTodosRepository(Firestore.instance),
-            userRepository ?? FirebaseUserRepository(FirebaseAuth.instance),
+            userRepository ?? FirebaseUserRepository(),
           ),
         ),
         super(key: key) {

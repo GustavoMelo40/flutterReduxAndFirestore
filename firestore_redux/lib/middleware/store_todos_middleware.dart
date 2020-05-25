@@ -47,7 +47,7 @@ void Function(
   return (store, action, next) {
     next(action);
 
-    repository.login().then((_) {
+    repository.handleSignIn().then((_) {
       store.dispatch(ConnectToDataSourceAction());
     });
   };

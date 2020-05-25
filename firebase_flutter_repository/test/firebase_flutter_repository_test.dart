@@ -16,7 +16,7 @@ void main() {
   group('FirebaseUserRepository', () {
     test('should log the user in anonymously', () async {
       final auth = MockFirebaseAuth();
-      final repository = FirebaseUserRepository(auth);
+      final repository = FirebaseUserRepository();
 
       when(auth.signInAnonymously())
           .thenAnswer((_) => Future.value(MockAuthResult()));
